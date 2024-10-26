@@ -1,3 +1,3 @@
-# A Computational Approach to discovering plastic degrading enzymes
+# Discovering plastic degradation enzymes
 
-### The repository contains scripts used to produce the results and figures. All files used in the scripts are available at 
+##### The repository contains scripts with a computational approach used to produce the results and figures. All files used in the scripts are available at 
