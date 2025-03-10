@@ -130,7 +130,7 @@ The pipeline generates the following output files:
 ##### Prepare Input Files:
 1) Ensure pollution_abundance.tsv and enzyme_abundance.tsv are in the correct format and located in the working directory.
 2) Run the Script:
-	- Execute the script in your terminal or Python environment: python enzyme_correlation_pipeline.py
+	- Execute the script in your terminal or Python environment: python pipeline_name.py
 
 ### Results
 The pipeline will output two files with target results:
