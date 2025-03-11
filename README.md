@@ -4,6 +4,10 @@
 
 This repository provides a computational pipeline designed to identify enzymes with plastic-degrading properties, potential synergistic enzyme combinations, and species associated with plastic degradation. The pipeline utilizes data from the Tara Oceans study to perform enzyme and species identification.
 
+There are two main types of scripts in this repository:
+1) Jupyter Notebook Scripts: specific to using Tara Oceans and Global Topsoil data for plastic degradation enzyme and specie identification.
+2) General Python Scripts: more generalized to be used with different datasets in the same format.
+
 ---
 
 ## Purpose of the Pipeline
@@ -13,7 +17,7 @@ The main objectives of the pipeline are to:
 2. Discover possible enzyme combinations that may exhibit synergistic plastic degradation effects.
 3. Identify species known for their plastic-degrading properties based on available literature.
 
-The pipeline leverages **Tara Oceans** data for enzyme and species identification.
+The pipeline leverages **Tara Oceans** data and **Gloabl Topsoil** data for enzyme and species identification.
 
 ---
 
@@ -30,22 +34,22 @@ The pipeline will generate the following outputs:
 
 The scripts are developed to run in **Jupyter Notebook**. You can use the Jupyter Notebook environment directly from your browser: [Jupyter Online](https://jupyter.org/try). For installation, follow the instructions on the official site: [Jupyter Installation Guide](https://jupyter.org/install).
 
-### Software Dependencies
+### Dependencies
 - **Python 3.x**
 - Required Python Libraries:
   - `numpy`
   - `pandas`
   - `scipy`
+  - `csv`
 
 ---
 
 ## Getting Started
 
-### 1. Using Jupyter Notebook
-
+### 1. Using Jupyter Notebook scripts
+### Ocean Analysis
 #### Step 1: Set up the Environment
-1. **Download and open the setup script** in Jupyter Notebook. This script aggregates pollution data from the Tara Oceans study into a single file called `pollutionData.txt`.  
-    > [Setup Script on GitHub](https://github.com/JanZrimec/Plastic_degrading_microbiome/blob/master/scripts/3_ocean_analysis.ipynb)
+1. **Download and open the ocean setup script** in Jupyter Notebook. This script aggregates pollution measurements from the Tara Oceans study into a single file called `pollutionData.txt`.  
 
    #### Required Input Files:
    - `Sunagawa_TableS1.xlsx`
@@ -60,10 +64,10 @@ The scripts are developed to run in **Jupyter Notebook**. You can use the Jupyte
 
    All required input files can be found at: [Zenodo DOI 5112372](https://doi.org/10.5281/zenodo.5112372)
 
-2. **Run the setup script**: This will generate the `pollutionData.txt` file, which is required for the analysis pipeline.
+2. **Run the setup script**: This will generate the `pollutionData.txt` file, which is required for the analysis.
 
-#### Step 2: Run the Analysis Pipeline
-1. **Download and open the analysis script** in Jupyter Notebook. This script will perform the core analysis.
+#### Step 2: Run the Analysis
+1. **Download and open the ocean analysis script** in Jupyter Notebook. This script will perform the core analysis.
    
    #### Required Input Files for Analysis:
    - `pollutionData.txt`
@@ -73,7 +77,7 @@ The scripts are developed to run in **Jupyter Notebook**. You can use the Jupyte
 
    All required input files can be found at: [Zenodo DOI 13997003](https://doi.org/10.5281/zenodo.13997003)
 
-2. **Run the analysis script**.
+2. **Run the analysis script**. This will create files with identified significant enzymes, combinations, and species.
 
 ---
 
@@ -81,7 +85,7 @@ The scripts are developed to run in **Jupyter Notebook**. You can use the Jupyte
 
 #### Input Files
 
-The pipeline requires two input files in **TSV** format:
+Both the enzyme and species pipeline require two input files in **TSV** format:
 
 1. **Pollution Abundance File** (`pollution_abundance.tsv`):
    - Contains pollution abundance data.
@@ -103,7 +107,7 @@ The pipeline requires two input files in **TSV** format:
 
 #### Output Files
 
-The pipeline generates the following output files:
+Both the enzyme and species pipeline generate the following output files:
 
 1. **All Correlation Results** (`all_enzyme_<method>_correlations.tsv`): Contains correlation coefficients, t-values, p-values, and confidence intervals for all enzymes.
    - **Example Format**:
@@ -126,18 +130,29 @@ The pipeline generates the following output files:
      enzyme1  0.85                  5.23              0.001             0.78                 0.90                 0.83                   5.10              0.002               0.75                   0.88
      ```
 
-##### Usage
+### Usage
 ##### Prepare Input Files:
 1) Ensure pollution_abundance.tsv and enzyme_abundance.tsv are in the correct format and located in the working directory.
 2) Run the Script:
-	- Execute the script in your terminal or Python environment: python pipeline_name.py
+	- Execute the script in your terminal or Python environment:
+ 		- For Enzyme Analysis script: python enzyme_analysis.py
+   		- For Combination Analysis script: python combination_analysis.py
+		- For Species Analysis script: python species_analysis.py 
 
 ### Results
-The pipeline will output two files with target results:
+The jupyter notebook scripts will output the following files:
 * results.xlsx
 	* contains a list of enzymes that are significantly correlated with pollution and enzyme combinations that have the most potential to produce a synergistic effect in the degradation of plastic.
 * significant_species
 	* contains a list of species that are significantly correlated with pollution with their identified taxa information
+
+The python scripts will output the following files:
+* All Correlation Results (all_enzyme_<method>_correlations.tsv):
+	* Contains correlation coefficients, t-values, p-values, and confidence intervals for all enzyme-pollution pairings.
+* Significant Correlation Results (sig_<method>_enzymes.tsv):
+	* Contains only significant correlations based on the Benjamini-Hochberg procedure.
+* Overlapping Enzymes (enzyme_overlap.tsv):
+	* Contains enzymes that are significant in both Pearson and Spearman correlation analyses.
 
 ### Understanding the Results
 #### Interpreting List of Enzymes
@@ -158,9 +173,9 @@ You can customize the following parameters in the script:
 	* Change the range of accepted pollution values for the distance from the closest pollution location.
  	* Change degrees of freedom when calculating t-distribution
   	* Change n parameter from n=10 to desired number of matching positive values in samples
-   	* Correlation Method: Change the correlation_method variable to "pearson" or "spearman":
-    	* Confidence Level: Modify the confidence_level parameter in the calculate_confidence_interval function:
-     	* Input File Names: Update the pollution_file and enzyme_file variables if your input files have different names or paths:
+   	* Correlation Method: Change the correlation_method variable to "pearson" or "spearman"
+	* Confidence Level: Modify the confidence_level parameter in the calculate_confidence_interval function
+	* Input File Names: Update the pollution_file and enzyme_file variables if your input files have different names or paths
 
 ### Additional Notes
 Ensure all input files are correctly formatted and placed in the working directory before running the scripts.
