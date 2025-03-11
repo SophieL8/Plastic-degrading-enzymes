@@ -6,7 +6,7 @@ This repository provides a computational pipeline designed to identify enzymes w
 
 There are two main types of scripts in this repository:
 1) Jupyter Notebook Scripts: specific to using Tara Oceans and Global Topsoil data for plastic degradation enzyme and specie identification.
-2) General Python Scripts: more generalized to be used with different datasets in the same format.
+2) Python Scripts: more generalized to be used with different datasets in the same format.
 
 ---
 
@@ -17,7 +17,7 @@ The main objectives of the pipeline are to:
 2. Discover possible enzyme combinations that may exhibit synergistic plastic degradation effects.
 3. Identify species known for their plastic-degrading properties based on available literature.
 
-The pipeline leverages **Tara Oceans** data and **Gloabl Topsoil** data for enzyme and species identification.
+The pipeline leverages **Tara Oceans** data for enzyme and species identification.
 
 ---
 
